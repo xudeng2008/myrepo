@@ -8,7 +8,7 @@ Entrez.email = "xudeng@luc.edu.com"
 #retrive data by searching the Nucleotide database with term
 handle = Entrez.efetch(db="nucleotide", id='EF999921', rettype="gb", retmode="text")
 
-with open("reference_cDNA.txt",'w') as outfile:
+with open("reference_cDNA.fasta",'w') as outfile:
     for record in SeqIO.parse(handle,"genbank"):
         if record.features:
             for feature in record.features:
