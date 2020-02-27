@@ -55,7 +55,7 @@ with open ("SRR_accession_IDs.txt",'r') as infile: #read in the accession IDs
 #run sleuth Rscript to calculate differential expression
 os.system('Rscript scripts/sleuth.R') #store the significant genes in a DEGs.txt file
 
-with open ("DEGs.txt",'r') as data: # store the output of sleuth to the log file
+with open ("miniProject_Xufang_Deng/DEGs.txt",'r') as data: # store the output of sleuth to the log file
     with open ("miniProject.log",'a') as log:
         for line in data:
             log.write(line)
