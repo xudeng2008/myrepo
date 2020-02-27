@@ -28,7 +28,7 @@ with open("miniProject_Xufang_Deng/reference_cDNA.fasta",'w') as outfile: #creat
         if record.features: #if record has features
             for feature in record.features: #loop the features
                 if feature.type == 'CDS': #find the CDS feature
-                    outfile.write(">"+feature.qualifiers["product"].replace("[","").replace("]","").replace("'","")+'\n') #store the name of the CDS
+                    outfile.write(">"+str(feature.qualifiers["product"]).replace("[","").replace("]","").replace("'","")+'\n') #store the name of the CDS
                     CDS = feature.location.extract(record).seq #get the CDS sequence
                     outfile.write(str(CDS)+'\n')
     outfile.close()
