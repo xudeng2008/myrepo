@@ -166,6 +166,6 @@ for record in blast_records: #loop the list of blast results
         topHSP_bits= str(alignment.hsps[0].bits) # bit-score of the alignment
         topHSP_expect= str(alignment.hsps[0].expect) # expect value of the alignment
         # write these output in log file
-        log.write(seq_title+"\ta"+lign_len+"\t"+number_HSPs+"\t"+topHSP_ident+"\t"+topHSP_gaps+"\t"+topHSP_bits+"\t"+topHSP_expect)
+        log.write(seq_title+"\t"+lign_len+"\t"+number_HSPs+"\t"+topHSP_ident+"\t"+topHSP_gaps+"\t"+topHSP_bits+"\t"+topHSP_expect)
 #close the log file
 log.close()
