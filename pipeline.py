@@ -20,22 +20,19 @@ Entrez.email = email
 #retrive data by searching the Nucleotide database with term
 handle = Entrez.efetch(db="nucleotide", id='EF999921', rettype="gb", retmode="text")
 with open("miniProject_Xufang_Deng/reference_cDNA.fasta",'w') as outfile: #create an out file
-    record = SeqIO.parse(handle,"genbank")
-    record.features = [f for f in record.features if f.type == "CDS"]
-    SeqIO.write(record, outfile, "genbank")
+#    record = SeqIO.parse(handle,"genbank")
+#    record.features = [f for f in record.features if f.type == "CDS"]
+#    SeqIO.write(record, outfile, "genbank")
+#    outfile.close()
+    for record in SeqIO.parse(handle,"genbank"): #parse the file
+        if record.features: #if record has features
+            for feature in record.features: #loop the features
+                if feature.type == 'CDS': #find the CDS feature
+                    outfile.write(">"+feature.qualifiers["product"].replace("[","").replace("]","").replace("'","")+'\n') #store the name of the CDS
+                    CDS = feature.location.extract(record).seq #get the CDS sequence
+                    outfile.write(str(CDS)+'\n')
     outfile.close()
-#    for record in SeqIO.parse(handle,"genbank"): #parse the file
     
-#        if record.features: #if record has features
-#            for feature in record.features: #loop the features
-#                if feature.type == 'CDS': #find the CDS feature
-#                    pdtlist = feature.qualifiers["product"] #get the product name
-#                    outfile.write(">"+pdtlist[0]+'\n') #store the name of the CDS
-#                    CDSlist = feature.location.extract(record).seq #get the CDS sequence
-#                    outfile.write(str(CDSlist)+'\n')
-#                    count+=1
-    
-
 log = open ("miniProject.log",'w') #create a log file
 with open("miniProject_Xufang_Deng/reference_cDNA.fasta",'r') as infile:
     count = 0 #store the number of CDS    
@@ -64,17 +61,20 @@ with open ("DEGs.txt",'r') as data: # store the output of sleuth to the log file
             log.write(line)
 log.close()
 
-#Fill in the Entrez.email field
-Entrez.email = email
-#retrive data by searching the Nucleotide database with term
-handle = Entrez.efetch(db="nucleotide", id='EF999921', rettype="gb", retmode="text")
+with open ("miniProject_Xufang_Deng/reference_genome.fasta",'w') as outfile: 
+    #Fill in the Entrez.email field
+    Entrez.email = email
+    #retrive data by searching the Nucleotide database with term
+    handle = Entrez.efetch(db="nucleotide", id='EF999921', rettype="fasta")
+    record = SeqIO.read(handle, "fasta")
+    outfile.write(">"+str(record.description)+'\n'+str(record.seq)+'\n')
 
 
 #Perform mapping using bowtie2
 with open ("SRR_accession_IDs.txt",'r') as infile: #read in the accession IDs
     IDlist = infile.read().splitlines() #make the IDs as list
 
-    os.system('bowtie2-build miniProject_Xufang_Deng/reference_cDNA.fasta index/HCMV') #build an index file
+    os.system('bowtie2-build miniProject_Xufang_Deng/reference_genome.fasta index/HCMV') #build an index file
 
     for id in IDlist:
         os.system("bowtie2 --quiet -x index/HCMV -1 miniProject_Xufang_Deng/"+id+"_1.fastq"+" -2 miniProject_Xufang_Deng/"+id+"_2.fastq --al-conc miniProject_Xufang_Deng/"+id+"mapped.fq") #map reads to a reference
