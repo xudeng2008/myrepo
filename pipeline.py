@@ -5,8 +5,10 @@ from Bio import SeqIO #import SeqIO module
 from Bio.Blast import NCBIWWW #import NCBIWWW module to blast
 from Bio.Blast import NCBIXML #import NCBIXML to parse blast output
 
+email = "xudeng@luc.edu"
+
 #extract sequence data from SRR database
-os.system("mkdir miniProject_Xufang_Deng") # A directory to store downloaded data
+    os.system("mkdir miniProject_Xufang_Deng") # A directory to store downloaded data
 with open ("SRR_accession_IDs.txt",'r') as infile: #read in the accession IDs
     IDlist = infile.read().splitlines() #make the IDs as list
     for id in IDlist:
@@ -14,7 +16,7 @@ with open ("SRR_accession_IDs.txt",'r') as infile: #read in the accession IDs
 
 
 #Fill in the Entrez.email field
-Entrez.email = "xudeng@luc.edu"
+Entrez.email = email
 #retrive data by searching the Nucleotide database with term
 handle = Entrez.efetch(db="nucleotide", id='EF999921', rettype="gb", retmode="text")
 with open("miniProject_Xufang_Deng/reference_cDNA.fasta",'w') as outfile: #create an out file
@@ -61,6 +63,12 @@ with open ("DEGs.txt",'r') as data: # store the output of sleuth to the log file
         for line in data:
             log.write(line)
 log.close()
+
+#Fill in the Entrez.email field
+Entrez.email = email
+#retrive data by searching the Nucleotide database with term
+handle = Entrez.efetch(db="nucleotide", id='EF999921', rettype="gb", retmode="text")
+
 
 #Perform mapping using bowtie2
 with open ("SRR_accession_IDs.txt",'r') as infile: #read in the accession IDs
