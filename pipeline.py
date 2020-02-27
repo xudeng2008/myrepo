@@ -108,10 +108,10 @@ log.close()
 #Use SPAdes to assemble mapped reads
 os.system('cat miniProject_Xufang_Deng/*mapped.1.fq > miniProject_Xufang_Deng/merged_1.fq') #merge all 4 forward file to  a single file
 os.system('cat miniProject_Xufang_Deng/*mapped.2.fq > miniProject_Xufang_Deng/merged_2.fq') #merge all 4 reverse file to  a single file
-os.system('spades -k 55,77,99,127 -t 2 --only-assembler -1 miniProject_Xufang_Deng/merged_1.fq -2 miniProject_Xufang_Deng/merged_2.fq  -o HCMV_assembly') #use SPAdes to assembly 
+os.system('spades -k 55,77,99,127 -t 4 --only-assembler -1 miniProject_Xufang_Deng/merged_1.fq -2 miniProject_Xufang_Deng/merged_2.fq  -o HCMV_assembly') #use SPAdes to assembly 
 
 with open ("miniProject.log",'a') as log:
-    log.write('spades -k 55,77,99,127 -t 2 --only-assembler -1 miniProject_Xufang_Deng/merged_1.fq -2 miniProject_Xufang_Deng/merged_2.fq -o HCMV_assembly\n\n')
+    log.write('spades -k 55,77,99,127 -t 4 --only-assembler -1 miniProject_Xufang_Deng/merged_1.fq -2 miniProject_Xufang_Deng/merged_2.fq -o HCMV_assembly\n\n')
 log.close()
 
 #count the number of contig with a length greater than 1000 nt
