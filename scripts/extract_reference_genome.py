@@ -16,4 +16,4 @@ with open("reference_cDNA.fasta",'w') as outfile: #create an out file
                     CDSlist = feature.location.extract(record).seq #get the CDS sequence
                     outfile.write(str(CDSlist)+'\n')
                     count+=1
-outfile.close()
+    outfile.close()
