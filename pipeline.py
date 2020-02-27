@@ -28,7 +28,7 @@ with open("miniProject_Xufang_Deng/reference_cDNA.fasta",'w') as outfile: #creat
         if record.features: #if record has features
             for feature in record.features: #loop the features
                 if feature.type == 'CDS': #find the CDS feature
-                    outfile.write(">"+str(feature.qualifiers["product"]).replace("[","").replace("]","").replace("'","")+'\n') #store the name of the CDS
+                    outfile.write(">"+str(feature.qualifiers["protein_id"]).replace("[","").replace("]","").replace("'","")+'\n') #store the name of the CDS
                     CDS = feature.location.extract(record).seq #get the CDS sequence
                     outfile.write(str(CDS)+'\n')
     outfile.close()
@@ -50,7 +50,7 @@ os.system('time kallisto index -i index/index.idx miniProject_Xufang_Deng/refere
 with open ("SRR_accession_IDs.txt",'r') as infile: #read in the accession IDs
     IDlist = infile.read().splitlines() #make the IDs as list
     for id in IDlist:
-        os.system ('time kallisto quant -i index/index.idx -o miniProject_Xufang_Deng/results/'+id+' -b 30 -t 4 miniProject_Xufang_Deng/'+id+'_1.fastq'+'miniProject_Xufang_Deng/'+id+'_2.fastq') #run kallisto function to quantify reads
+        os.system ('time kallisto quant -i index/index.idx -o miniProject_Xufang_Deng/'+id+' -b 30 -t 4 miniProject_Xufang_Deng/'+id+'_1.fastq'+'miniProject_Xufang_Deng/'+id+'_2.fastq') #run kallisto function to quantify reads
 
 #run sleuth Rscript to calculate differential expression
 os.system('Rscript scripts/sleuth.R') #store the significant genes in a DEGs.txt file
@@ -68,7 +68,7 @@ with open ("miniProject_Xufang_Deng/reference_genome.fasta",'w') as outfile:
     handle = Entrez.efetch(db="nucleotide", id='EF999921', rettype="fasta")
     record = SeqIO.read(handle, "fasta")
     outfile.write(">"+str(record.description)+'\n'+str(record.seq)+'\n')
-
+    outfile.close()
 
 #Perform mapping using bowtie2
 with open ("SRR_accession_IDs.txt",'r') as infile: #read in the accession IDs
@@ -149,7 +149,7 @@ outfile.close()
 
 #Blast the assembled sequence in NCBI
 query_seq = open('HCMV_assembly/ligated_contigs.fasta').read() # read in the assembled contigs
-result_handle = NCBIWWW.qblast("blastn", "nt", query_seq, entrez_query = "Herpesviridae", hitlist_size= 10) # run blastn in nt database
+result_handle = NCBIWWW.qblast("blastn", "nr", query_seq, entrez_query = "Herpesviridae", hitlist_size= 10) # run blastn in nt database
 
 with open ("miniProject.log",'a') as log: #read in the log file
     log.write("seq_title\talign_len\tnumber_HSPs\ttopHSP_ident\ttopHSP_gaps\ttopHSP_bits\ttopHSP_expect") # head of the log file of blast report
