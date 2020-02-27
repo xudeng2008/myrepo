@@ -1,4 +1,4 @@
-# Goal: This pipeline scripts is designed for automatically analysing sequencing data, assembling a genome, and blasting a genome in Genbank database. 
+# Goal: This pipeline scripts is designed for analysing sequencing data, assembling a genome, and blasting a genome in Genbank database. 
 
 ## Environment Requirements:
 1. Linux
