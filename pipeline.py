@@ -8,7 +8,7 @@ from Bio.Blast import NCBIXML #import NCBIXML to parse blast output
 email = "xudeng@luc.edu"
 
 #extract sequence data from SRR database
-    os.system("mkdir miniProject_Xufang_Deng") # A directory to store downloaded data
+os.system("mkdir miniProject_Xufang_Deng") # A directory to store downloaded data
 with open ("SRR_accession_IDs.txt",'r') as infile: #read in the accession IDs
     IDlist = infile.read().splitlines() #make the IDs as list
     for id in IDlist:
