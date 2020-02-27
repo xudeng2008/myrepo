@@ -18,30 +18,40 @@ Entrez.email = "xudeng@luc.edu"
 #retrive data by searching the Nucleotide database with term
 handle = Entrez.efetch(db="nucleotide", id='EF999921', rettype="gb", retmode="text")
 with open("miniProject_Xufang_Deng/reference_cDNA.fasta",'w') as outfile: #create an out file
-    count = 0 #store the number of CDS
-    for record in SeqIO.parse(handle,"genbank"): #parse the file
-        if record.features: #if record has features
-            for feature in record.features: #loop the features
-                if feature.type == 'CDS': #find the CDS feature
-                    pdtlist = feature.qualifiers["product"] #get the product name
-                    outfile.write(">"+pdtlist[0]+'\n') #store the name of the CDS
-                    CDSlist = feature.location.extract(record).seq #get the CDS sequence
-                    outfile.write(str(CDSlist)+'\n')
-                    count+=1
+    record = SeqIO.parse(handle,"genbank")
+    record.features = [f for f in record.features if f.type == "CDS"]
+    SeqIO.write(record, outfile, "genbank")
     outfile.close()
+#    for record in SeqIO.parse(handle,"genbank"): #parse the file
+    
+#        if record.features: #if record has features
+#            for feature in record.features: #loop the features
+#                if feature.type == 'CDS': #find the CDS feature
+#                    pdtlist = feature.qualifiers["product"] #get the product name
+#                    outfile.write(">"+pdtlist[0]+'\n') #store the name of the CDS
+#                    CDSlist = feature.location.extract(record).seq #get the CDS sequence
+#                    outfile.write(str(CDSlist)+'\n')
+#                    count+=1
+    
 
 log = open ("miniProject.log",'w') #create a log file
+with open("miniProject_Xufang_Deng/reference_cDNA.fasta",'r') as infile:
+    count = 0 #store the number of CDS    
+    for line in infile:
+        if line.startswith(">"):
+            count += 1
+    infile.close()
 log.write('The HCMV genome (EF99921) has '+str(count)+ ' CDS.\n') #write the CDS number to the log file
 log.close()
 
 #Use kallisto to quantify the reads
 os.system('mkdir index')
-os.system('time kallisto index -i index.idx miniProject_Xufang_Deng/reference_cDNA.fasta') #build an index file
+os.system('time kallisto index -i index/index.idx miniProject_Xufang_Deng/reference_cDNA.fasta') #build an index file
 
 with open ("SRR_accession_IDs.txt",'r') as infile: #read in the accession IDs
     IDlist = infile.read().splitlines() #make the IDs as list
     for id in IDlist:
-        os.system ('time kallisto quant -i index.idx -o miniProject_Xufang_Deng/results/'+id+' -b 30 -t 4 miniProject_Xufang_Deng/'+id+'_1.fastq'+'miniProject_Xufang_Deng/'+id+'_2.fastq') #run kallisto function to quantify reads
+        os.system ('time kallisto quant -i index/index.idx -o miniProject_Xufang_Deng/results/'+id+' -b 30 -t 4 miniProject_Xufang_Deng/'+id+'_1.fastq'+'miniProject_Xufang_Deng/'+id+'_2.fastq') #run kallisto function to quantify reads
 
 #run sleuth Rscript to calculate differential expression
 os.system('Rscript scripts/sleuth.R') #store the significant genes in a DEGs.txt file
