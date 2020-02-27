@@ -146,6 +146,6 @@ for record in blast_records:
         topHSP_gaps= str(alignment.hsps[0].gaps)
         topHSP_bits= str(alignment.hsps[0].bits)
         topHSP_expect= str(alignment.hsps[0].expect)
-        log.write(seq_title\talign_len\tnumber_HSPs\ttopHSP_ident\ttopHSP_gaps\ttopHSP_bits\ttopHSP_expect\n)
+        log.write(seq_title\talign_len\tnumber_HSPs\ttopHSP_ident\ttopHSP_gaps\ttopHSP_bits\ttopHSP_expect)
 
 log.close()
