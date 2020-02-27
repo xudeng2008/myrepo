@@ -30,7 +30,7 @@ with open("reference_cDNA.fasta",'w') as outfile: #create an out file
     outfile.close()
 
 log = open ("miniProject.log",'w')
-log.write('The HCMV genome (EF99921) has '+str(count)+ ' CDS.') #write to the log file
+log.write('The HCMV genome (EF99921) has '+str(count)+ ' CDS.\n') #write to the log file
 log.close()
 
 #Use kallisto to quantify the reads
@@ -43,7 +43,7 @@ with open ("SRR_accession_IDs.txt",'r') as infile: #read in the accession IDs
         os.system ('time kallisto quant -i index/index.idx -o /miniProject_Xufang_Deng/results/'+id+' -b 30 -t 4 /myrepo/miniProject_Xufang_Deng/'+id+'_1.fastq'+'/miniProject_Xufang_Deng/'+id+'_2.fastq') #run kallisto function to quantify reads
 
 #run sleuth Rscript to calculate differential expression
-os.system('Rscript sleuth.R') #store the significant genes in a DEGs.txt file
+os.system('Rscript scripts/sleuth.R') #store the significant genes in a DEGs.txt file
 
 with open ("DEGs.txt",'r') as data: # store the output of sleuth to the log file
     with open ("miniProject.log",'a') as log:
@@ -146,6 +146,6 @@ for record in blast_records:
         topHSP_gaps= str(alignment.hsps[0].gaps)
         topHSP_bits= str(alignment.hsps[0].bits)
         topHSP_expect= str(alignment.hsps[0].expect)
-        log.write(seq_title\talign_len\tnumber_HSPs\ttopHSP_ident\ttopHSP_gaps\ttopHSP_bits\ttopHSP_expect)
+        log.write(seq_title+"\ta"+lign_len+"\t"+number_HSPs+"\t"+topHSP_ident+"\t"+topHSP_gaps+"\t"+topHSP_bits+"\t"+topHSP_expect)
 
 log.close()
