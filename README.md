@@ -30,5 +30,5 @@
 2. Biopython: SeqIO, Entrez, NCBIWWW, NCBIXML
 
 ## Supplemental files:
-**1. SRR_accession_IDs.txt** A file contains accession numbers
-**2. sample_table.txt** A file contains a table for sleuth package doing statitic analysis
+**1. SRR_accession_IDs.txt** A file contains accession numbers.
+**2. sample_table.txt** A file contains a table for sleuth package doing statitic analysis.
