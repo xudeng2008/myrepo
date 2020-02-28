@@ -29,4 +29,4 @@ sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05) %>% dplyr::arran
 sleuth_significant <- dplyr::select(sleuth_significant, target_id,test_stat, pval, qval)
 
 #write data to a file
-write.table(sleuth_significant, file="miniProject_Xufang_Deng/DEGs.txt",quote = FALSE,row.names = FALSE)
+write.table(sleuth_significant, file="testData/DEGs.txt",quote = FALSE,row.names = FALSE)
