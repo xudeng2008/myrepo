@@ -2,7 +2,7 @@ from Bio import Entrez #import Entrez module to retrive data from NCBI
 from Bio import SeqIO #import SeqIO module
 
 #Fill in the Entrez.email field
-Entrez.email = "xudeng@luc.edu"
+Entrez.email = "youremail@luc.edu"
 
 #retrive data by searching the Nucleotide database with term
 handle = Entrez.efetch(db="nucleotide", id='EF999921', rettype="gb", retmode="text")
