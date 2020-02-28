@@ -22,3 +22,18 @@ Donor 3 at 2 dpi had 2730258.0 read pairs before Bowtie2 filtering and 2382996.0
 Donor 3 at 6 dpi had 2476889.0 read pairs before Bowtie2 filtering and 1500834.0 read after.
 spades -k 55,77,99,127 -t 4 --only-assembler -1 miniProject_Xufang_Deng/merged_1.fq -2 miniProject_Xufang_Deng/merged_2.fq -o HCMV_assembly
 
+There are 55 contigs > 1000 bp in the assembly.
+There are 194338 bp in the assembly.
+
+
+seq_title	align_len	number_HSPs	topHSP_ident	topHSP_gaps	topHSP_bits	topHSP_expect
+gi|1273125815|gb|MF871618.1| Synthetic human betaherpesvirus 5 clone TB40-BAC-KL7-SE, complete sequence	242896	66	16247	0	29300.6	0.0
+gi|404315683|gb|JX512204.1| Human herpesvirus 5 strain HAN16, complete genome	235112	66	16247	0	29300.6	0.0
+gi|523510377|gb|KF297339.1| Human herpesvirus 5 strain TB40/E clone Lisa, complete genome	237683	66	16247	0	29300.6	0.0
+gi|157779983|gb|EF999921.1| Human herpesvirus 5 strain TB40/E clone TB40-BAC4, complete sequence	229050	63	16247	0	29300.6	0.0
+gi|1098408701|gb|KX544839.1| Human herpesvirus 5 isolate TB40-E_UNC, complete genome	228992	63	16239	5	29246.5	0.0
+gi|822908276|gb|KP745712.1| Human herpesvirus 5 strain BE/19/2010, complete genome	235365	64	16192	4	29044.5	0.0
+gi|823076282|gb|KR534201.1| Human herpesvirus 5 strain JER2002, complete genome	235339	58	16187	12	29004.0	0.0
+gi|822889327|gb|KP745652.1| Human herpesvirus 5 strain BE/2/2011, complete genome	235810	65	16178	4	28984.1	0.0
+gi|1098408855|gb|KX544840.1| Human herpesvirus 5 isolate UXCA_Merck_UNC, complete genome	223782	62	16177	3	28983.2	0.0
+gi|823075433|gb|KR534196.1| Human herpesvirus 5 strain JER847, complete genome	235713	58	16175	0	28976.0	0.0
